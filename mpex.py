@@ -14,7 +14,7 @@ class MPEx:
 
     def command(self, command):
         if self.passphrase == None: return None
-        signed_data = self.gpg.sign(command.upper(), passphrase=self.passphrase)
+        signed_data = self.gpg.sign(command, passphrase=self.passphrase)
         encrypted_ascii_data = self.gpg.encrypt(str(signed_data), self.mpex_fingerprint, passphrase=self.passphrase)
         data = urllib.urlencode({'msg' : str(encrypted_ascii_data)})
         req = urllib2.Request(self.mpex_url, data)
