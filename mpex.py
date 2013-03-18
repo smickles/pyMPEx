@@ -57,10 +57,9 @@ class MPEx:
         result = response.read()
         if (self.log) :self.log.write(datetime.now().isoformat() + " " +result+ "\n")
         reply = str(self.gpg.decrypt(result, passphrase=self.passphrase))
-        if not self.gpg.verify(reply):
-            print '!!!WARNING!!!'
-            print 'Invalid Signature, do not trust this data.'
         if reply == '': return None
+        if not self.gpg.verify(reply).fingerprint != '3D57448E80A56F64F1D35E8F14460196CFE0F3E1':
+            reply = "!!!WARNING!!! Invalid Signature, do not trust this data. \n" + reply
         if (self.log) : self.log.write(datetime.now().isoformat() + " " +reply+"\n")
         return reply
 
