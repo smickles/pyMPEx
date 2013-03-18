@@ -50,7 +50,7 @@ class MPEx:
         md5d = m.hexdigest()
         if (self.log) : self.log.write(datetime.now().isoformat() + " " +signed_data + "\nDigest/Track: " + md5d + "\n")
         print 'Track: ' + md5d[0:4] + "\n"
-        encrypted_ascii_data = self.gpg.encrypt(signed_data, self.mpex_fingerprint(), passphrase=self.passphrase)
+        encrypted_ascii_data = self.gpg.encrypt(signed_data, self.mpex_fingerprint(), passphrase=self.passphrase, always_trust=True)
         data = urllib.urlencode({'msg' : str(encrypted_ascii_data)})
         req = urllib2.Request(self.mpex_url, data)
         response = urllib2.urlopen(req)
@@ -104,7 +104,6 @@ if __name__ == '__main__':
     if not mpex.checkKey():
         print 'You have not added MPExes keys. Please run...'
         print 'gpg --search-keys "%s"' % mpex.mpex_fingerprint()
-        print 'gpg --sign-key %s' % mpex.mpex_fingerprint()
         exit()
     if not (args.noconfirm or mpex.confirm(args.command)):
         exit()
@@ -112,7 +111,6 @@ if __name__ == '__main__':
         mpex.passphrase = getpass("Enter your GPG passphrase: ")
     reply = mpex.command(args.command)
     if reply == None:
-        print 'Couldn\'t decode the reply from MPEx, perhaps you didn\'t sign the key? try running'
-        print 'gpg --sign-key %s' % mpex.mpex_fingerprint()
+        print 'Couldn\'t decode the reply from MPEx.'
         exit()
     print reply
