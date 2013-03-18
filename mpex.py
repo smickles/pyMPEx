@@ -30,7 +30,7 @@ def remove_exponent(d):
     return d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize()
 
 class MPEx:
-    def __init__(self, use_agent = False, logfile=True, mpexurl = 'http://mpex.co'):
+    def __init__(self, use_agent=True, logfile=True, mpexurl='http://mpex.co'):
         self.gpg = gnupg.GPG(use_agent=use_agent)
         self.mpex_url = mpexurl
 
