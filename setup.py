@@ -25,10 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from setuptools import setup
 
 setup(name='pyMPEx',
-      version='1.0',
+      version='1.0.1',
       description='A command line frontend and library for communication ' +
                   'with MPEx.',
-      author='Azelphur',
+      author='Azelphur, smickles',
       author_email='support@azelphur.com',
       url='https://github.com/Azelphur/pyMPEx',
       py_modules=['mpex'],
